@@ -1,3 +1,4 @@
+import 'package:beasy/pages/buisnes_user/streams_page.dart';
 import 'package:beasy/pages/usual_user/search_queue_page.dart';
 import 'package:flutter/material.dart';
 
@@ -36,13 +37,13 @@ class _HomePageBuisnessUserState extends State<HomePageBuisnessUser> {
   Widget _body() {
     switch (widget.sectionIndex) {
       case 0:
-      return SearchQueuePage();  
+      return StreamsPage();  
         break;
         case 1:
         return BuisnesUserProfilePage();
         break;
       default:
-      return SearchQueuePage();
+      return StreamsPage();
     }
   }
 }

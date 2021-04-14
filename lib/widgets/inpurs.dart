@@ -23,6 +23,7 @@ class CustomInput extends StatelessWidget {
     return Padding(
     padding: const EdgeInsets.only(top: 8),
     child: TextFormField(
+      
       validator: validator,
       onSaved: onSaved,
       cursorColor: Colors.white,
@@ -32,6 +33,7 @@ class CustomInput extends StatelessWidget {
       style: TextStyle(
           fontSize: 18, color: Colors.white, fontWeight: FontWeight.w300),
       decoration: InputDecoration(
+        prefixIcon: Icon(prefix),
         isDense: true,
         filled: true,
         fillColor: Colors.white.withOpacity(0.1),

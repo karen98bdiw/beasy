@@ -1,49 +1,34 @@
-import 'package:beasy/widgets/inpurs.dart';
+import 'package:beasy/pages/buisnes_user/stream_info_page.dart';
 import 'package:flutter/material.dart';
 
-class SearchQueuePage extends StatefulWidget {
-  SearchQueuePage({Key key}) : super(key: key);
+class StreamsPage extends StatefulWidget {
+  StreamsPage({Key key}) : super(key: key);
 
   @override
-  _SearchQueuePageState createState() => _SearchQueuePageState();
+  _StreamsPageState createState() => _StreamsPageState();
 }
 
-class _SearchQueuePageState extends State<SearchQueuePage> {
+class _StreamsPageState extends State<StreamsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromRGBO(46, 61, 77, 1),
       body: _body(),
     );
   }
 
   Widget _body() {
-    return Stack(
-      children: [
-        Container(
-            margin: EdgeInsets.only(top: 20),
-            child: CustomInput(
-
-                prefix: Icons.search, hintText: "Search", obscureText: false)),
-        Container(
-          margin: EdgeInsets.only(top: 90),
-          child: ListView.builder(
-              //physics: NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              itemCount: 5,
-              itemBuilder: (context, index) {
-                return StreamsCard();
-              }),
-        )
-      ],
-    );
+    return ListView.builder(
+        itemCount: 5,
+        itemBuilder: (context, index) {
+          return StreamsCard();
+        });
   }
 }
 
 class StreamsCard extends StatefulWidget {
-//  comp.Company company;
+  // comp.Company company;
 
-  //StreamsCard({this.company});
+  StreamsCard();
 
   @override
   _StreamsCardState createState() => _StreamsCardState();
@@ -82,10 +67,8 @@ class _StreamsCardState extends State<StreamsCard> {
           border: Border.all(color: Colors.grey, width: 0.5)),
       child: InkWell(
         onTap: () {
-          // Navigator.of(context).push(MaterialPageRoute(
-          //     builder: (context) => CompanyInfoPage(
-          //           company: widget.company,
-          //         )));
+          Navigator.of(context)
+              .push(MaterialPageRoute(builder: (context) => StreamInfo()));
         },
         child: Row(
           children: [
@@ -110,7 +93,7 @@ class _StreamsCardState extends State<StreamsCard> {
                         Text("name"),
                         Container(
                           //width: MediaQuery.of(context).size.width * 0.45,
-                          child: Text("descrip  "),
+                          child: Text("description"),
                         ),
                         Text(
                           workDays,
@@ -126,32 +109,32 @@ class _StreamsCardState extends State<StreamsCard> {
                 ],
               ),
             ),
-            Flexible(
-              flex: 1,
-              child: InkWell(
-                onTap: () {
-                  setState(() {
-                    if (value == false) {
-                      value = !value;
-                      // FavoriteCompanies.inserWidget(Text("111"));
-                      // print(FavoriteCompanies.faforiteList);
-                    } else {
-                      value = !value;
-                      // FavoriteCompanies.deletWidget();
-                      // print(FavoriteCompanies.faforiteList);
-                    }
-                  });
-                },
-                child: Container(
-                  margin: EdgeInsets.only(left: 20),
-                  child: Icon(
-                    value ? Icons.star : Icons.star_border_outlined,
-                    size: 30,
-                    color: value ? Colors.pink : Colors.grey,
-                  ),
-                ),
-              ),
-            )
+            // Flexible(
+            //   flex: 1,
+            //   child: InkWell(
+            //     onTap: () {
+            //       setState(() {
+            //         if (value == false) {
+            //           value = !value;
+            //           // FavoriteCompanies.inserWidget(Text("111"));
+            //           // print(FavoriteCompanies.faforiteList);
+            //         } else {
+            //           value = !value;
+            //           // FavoriteCompanies.deletWidget();
+            //           // print(FavoriteCompanies.faforiteList);
+            //         }
+            //       });
+            //     },
+            //     child: Container(
+            //       margin: EdgeInsets.only(left: 20),
+            //       child: Icon(
+            //         value ? Icons.star : Icons.star_border_outlined,
+            //         size: 30,
+            //         color: value ? Colors.pink : Colors.grey,
+            //       ),
+            //     ),
+            //   ),
+            // )
           ],
         ),
       ),

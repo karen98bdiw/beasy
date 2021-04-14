@@ -1,4 +1,5 @@
-import 'package:beasy/pages/usual_user/streams_page.dart';
+import 'package:beasy/pages/buisnes_user/streams_page.dart';
+import 'package:beasy/pages/usual_user/search_queue_page.dart';
 import 'package:beasy/pages/usual_user/user_profile_page.dart';
 import 'package:flutter/material.dart';
 
@@ -34,12 +35,13 @@ class _HomePageUserState extends State<HomePageUser> {
   Widget _body(){
     switch (widget.sectionIndex) {
       case 0:
-      return StreamsPage();
+      return SearchQueuePage();
         break;
           case 1:
       return UserProfilePage();
         break;
-      default:StreamsPage();
+      default:
+      return SearchQueuePage();
     }
   }
 }
