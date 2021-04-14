@@ -93,7 +93,7 @@ class _StreamsCardState extends State<StreamsCard> {
                         Text("name"),
                         Container(
                           //width: MediaQuery.of(context).size.width * 0.45,
-                          child: Text("description"),
+                          child: Text("descripion"),
                         ),
                         Text(
                           workDays,
