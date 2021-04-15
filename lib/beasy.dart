@@ -1,4 +1,4 @@
-import 'package:beasy/pages/signIn_signup/signin_page.dart';
+import 'package:beasy/pages/signin_signup/signin_page.dart';
 import 'package:flutter/material.dart';
 
 class Beasy extends StatelessWidget {
