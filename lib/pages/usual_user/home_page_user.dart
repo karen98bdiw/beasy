@@ -4,19 +4,18 @@ import 'package:beasy/pages/usual_user/user_profile_page.dart';
 import 'package:flutter/material.dart';
 
 class HomePageUser extends StatefulWidget {
-  int sectionIndex  = 0;
-  HomePageUser({this.sectionIndex});
 
   @override
   _HomePageUserState createState() => _HomePageUserState();
 }
 
 class _HomePageUserState extends State<HomePageUser> {
+  int sectionIndex = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
             bottomNavigationBar: BottomNavigationBar(
-        currentIndex: widget.sectionIndex,
+        currentIndex: sectionIndex,
         items: [
           BottomNavigationBarItem(
               label: "Streams", icon: Icon(Icons.menu)),
@@ -24,7 +23,7 @@ class _HomePageUserState extends State<HomePageUser> {
         ],
          onTap: (index) {
           setState(() {
-            widget.sectionIndex = index;
+            sectionIndex = index;
           });
         },
       ),
@@ -33,7 +32,7 @@ class _HomePageUserState extends State<HomePageUser> {
     );
   }
   Widget _body(){
-    switch (widget.sectionIndex) {
+    switch (sectionIndex) {
       case 0:
       return SearchQueuePage();
         break;
