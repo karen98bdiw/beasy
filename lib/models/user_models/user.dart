@@ -2,7 +2,7 @@ import 'package:beasy/utils/enums.dart';
 import 'package:beasy/utils/helpers.dart';
 
 class User {
-  final String id;
+  String id;
   final String name;
   final String surname;
   final String email;

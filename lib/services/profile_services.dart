@@ -49,6 +49,7 @@ class ProfileServices {
   }
 
   Future<bool> postUser(userModel.User user) async {
+    user.id = auth.currentUser.uid;
     try {
       await store
           .collection(usersCollectionPath)

@@ -2,8 +2,9 @@ import 'package:beasy/models/company_model/company_category.dart';
 import 'package:beasy/models/company_model/company_stream.dart';
 
 class Company {
-  final String companyId;
-  final String companyOwnerId;
+  String companyId;
+  String companyOwnerId;
+  final String companyName;
   final String companyDescription;
 
   final List<CompanyCategory> companyCategories;
@@ -15,6 +16,7 @@ class Company {
     this.companyDescription,
     this.companyOwnerId,
     this.companyStreams,
+    this.companyName,
   });
 
   factory Company.fromJson(json) {
@@ -30,6 +32,7 @@ class Company {
       companyStreams: (json["companyStreams"] as List)
           .map((e) => CompanyStream.fromJson(e))
           .toList(),
+      companyName: json["companyName"],
     );
   }
 
@@ -50,6 +53,7 @@ class Company {
     data["companyCategories"] = this.companyCategories != null
         ? this.companyCategories.map((e) => e.toJson()).toList()
         : null;
+    data["companyName"] = this.companyName;
 
     return data;
   }
