@@ -1,4 +1,4 @@
-import 'package:beasy/pages/buisnes_user/streams_page.dart';
+
 import 'package:beasy/pages/usual_user/search_queue_page.dart';
 import 'package:beasy/pages/usual_user/user_profile_page.dart';
 import 'package:flutter/material.dart';

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class StackCard extends StatefulWidget {
-  String name;
-  String description;
+  final String name;
+  final String description;
 
   StackCard({this.description, this.name});
 

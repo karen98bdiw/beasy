@@ -129,6 +129,7 @@ class _SelectWeekDaysState extends State<WeekDays> {
         return widget.unSelectedDayTextColor;
       }
     }
+    return widget.unSelectedDayTextColor;
   }
 //====================================================================================//
 

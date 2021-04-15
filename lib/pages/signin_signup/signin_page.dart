@@ -1,5 +1,4 @@
 import 'package:beasy/pages/buisnes_user/home_page_buisnes_user.dart';
-import 'package:beasy/pages/usual_user/home_page_user.dart';
 import 'package:beasy/widgets/buttons.dart';
 import 'package:beasy/widgets/inpurs.dart';
 import 'package:flutter/material.dart';
@@ -38,7 +37,7 @@ class _SingInPageState extends State<SingInPage> {
             text: "Sign In",
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => HomePageUser(sectionIndex: 0,)));
+                  builder: (context) => HomePageBuisnessUser()));
             },
           )
         ],

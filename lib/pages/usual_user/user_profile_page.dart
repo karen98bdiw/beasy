@@ -1,5 +1,4 @@
 import 'package:beasy/widgets/buttons.dart';
-import 'package:beasy/widgets/inpurs.dart';
 import 'package:beasy/widgets/stak_card.dart';
 import 'package:flutter/material.dart';
 

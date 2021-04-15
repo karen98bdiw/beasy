@@ -31,7 +31,7 @@ class _InfoPageViewState extends State<InfoPageView> {
           ),
           CustomInput(
             hintText: "Description",
-            controller: _workerNameController,
+            controller: _descriptionController,
           ),
           CustumButton(
             text: "add servise",
@@ -47,7 +47,7 @@ class _InfoPageViewState extends State<InfoPageView> {
 
   showAlertDialog(BuildContext context) {
     // set up the button
-    Widget okButton = FlatButton(
+    Widget okButton = ElevatedButton(
       child: Text("OK"),
       onPressed: () {},
     );
