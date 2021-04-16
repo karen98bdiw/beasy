@@ -6,17 +6,19 @@ class Company {
   String companyOwnerId;
   final String companyName;
   final String companyDescription;
-
+  final List<String> companyImages;
+  final String companyAvatar;
   final List<CompanyCategory> companyCategories;
-  final List<CompanyStream> companyStreams;
+  List<CompanyStream> companyStreams = [];
 
   Company({
     this.companyId,
     this.companyCategories,
     this.companyDescription,
     this.companyOwnerId,
-    this.companyStreams,
     this.companyName,
+    this.companyAvatar,
+    this.companyImages,
   });
 
   factory Company.fromJson(json) {
@@ -29,10 +31,11 @@ class Company {
           : null,
       companyDescription: json["companyDescription"],
       companyOwnerId: json["companyOwnerId"],
-      companyStreams: (json["companyStreams"] as List)
-          .map((e) => CompanyStream.fromJson(e))
-          .toList(),
       companyName: json["companyName"],
+      companyAvatar: json["companyAvatar"],
+      companyImages: json["companyImages"] != null
+          ? (json["companyImages"] as List).map((e) => e.toString()).toList()
+          : null,
     );
   }
 
@@ -42,19 +45,13 @@ class Company {
     data["companyId"] = this.companyId;
     data["companyOwnerId"] = this.companyOwnerId;
     data["companyDescription"] = this.companyDescription;
-    data["companyStreams"] = this.companyStreams != null
-        ? this
-            .companyStreams
-            .map(
-              (e) => e.toJson(),
-            )
-            .toList()
-        : null;
+
     data["companyCategories"] = this.companyCategories != null
         ? this.companyCategories.map((e) => e.toJson()).toList()
         : null;
     data["companyName"] = this.companyName;
-
+    data["companyImages"] = this.companyImages ?? null;
+    data["companyAvatar"] = this.companyAvatar;
     return data;
   }
 }

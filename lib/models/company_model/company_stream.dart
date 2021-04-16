@@ -2,38 +2,39 @@ import 'package:beasy/models/company_model/company_stream_service.dart';
 import 'package:beasy/models/company_model/stream_queue_item.dart';
 
 class CompanyStream {
-  final String companyStreamId;
+  String companyStreamId;
   final String streamName;
   final String streamDescription;
+  bool companyStreamState;
   final List<String> streamImages;
-  final List<StreamQueueItem> queue;
+  List<StreamQueueItem> queue = [];
   List<CompanyStreamService> streamServices;
 
-  CompanyStream(
-      {this.companyStreamId,
-      this.queue,
-      this.streamImages,
-      this.streamName,
-      this.streamServices,
-      this.streamDescription});
+  CompanyStream({
+    this.companyStreamId,
+    this.streamImages,
+    this.streamName,
+    this.streamServices,
+    this.streamDescription,
+    this.companyStreamState = false,
+  });
 
   factory CompanyStream.fromJson(json) {
     return CompanyStream(
       companyStreamId: json["companyStreamId"],
       streamName: json["streamName"],
-      streamDescription: json["stremaDescription"],
-      streamImages:
-          json["streamImages"] != null ? (json["streamImages"] as List) : null,
-      queue: json["queue"] != null
-          ? (json["queue"] as List)
-              .map((e) => StreamQueueItem.fromJson(e))
-              .toList()
+      streamDescription: json["streamDescription"],
+      streamImages: json["streamImages"] != null
+          ? (json["streamImages"] as List).map((e) => e.toString()).toList()
           : null,
       streamServices: json["streamServices"] != null
           ? (json["streamServices"] as List)
               .map((element) => CompanyStreamService.fromJson(element))
               .toList()
           : null,
+      companyStreamState: json["companyStreamState"] != null
+          ? json["companyStreamState"] as bool
+          : false,
     );
   }
 
@@ -41,14 +42,15 @@ class CompanyStream {
     var data = Map<String, dynamic>();
 
     data["companyStreamId"] = this.companyStreamId;
-    data["queue"] =
-        this.queue != null ? this.queue.map((e) => e.toJson()).toList() : null;
+
     data["streamName"] = this.streamName;
     data["streamDescription"] = this.streamDescription;
     data["streamImages"] = this.streamImages;
     data["streamServices"] = this.streamServices != null
         ? this.streamServices.map((e) => e.toJson()).toList()
         : null;
+    data["companyStreamState"] =
+        this.companyStreamState != null ? this.companyStreamState : false;
     return data;
   }
 }

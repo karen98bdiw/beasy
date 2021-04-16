@@ -1,10 +1,13 @@
+import 'package:beasy/services/beasyApi.dart';
 import 'package:flutter/material.dart';
 
 class StackCard extends StatefulWidget {
   final String name;
   final String description;
+  bool state;
+  final String id;
 
-  StackCard({this.description, this.name});
+  StackCard({this.description, this.name, this.state, this.id});
 
   @override
   _StackCardState createState() => _StackCardState();
@@ -41,7 +44,7 @@ class _StackCardState extends State<StackCard> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(widget.name ?? "name"),
+                    Text(widget.name ?? "hhh"),
                     Text(widget.description ?? "description "),
                   ],
                 ),
@@ -61,11 +64,13 @@ class _StackCardState extends State<StackCard> {
                   margin: EdgeInsets.only(top: 5),
                 ),
                 Switch(
-                  value: isSwitched,
+                  value: widget.state,
                   onChanged: (value) {
+                    BeasyApi()
+                        .companyServices
+                        .switchStreamState(toValue: value, streamId: widget.id);
                     setState(() {
-                      isSwitched = value;
-                      print(isSwitched);
+                      widget.state = value;
                     });
                   },
                 ),

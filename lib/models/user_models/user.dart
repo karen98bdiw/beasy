@@ -23,7 +23,7 @@ class User {
       name: json["name"],
       surname: json["surname"],
       email: json["email"],
-      companyId: json["compnyId"],
+      companyId: json["companyId"],
       id: json["id"],
       userType: userTypeFromString(json["userType"]),
     );

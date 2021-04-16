@@ -1,9 +1,12 @@
+import 'package:beasy/models/company_model/company.dart';
 import 'package:beasy/pages/buisnes_user/streams_page.dart';
+import 'package:beasy/services/beasyApi.dart';
 import 'package:flutter/material.dart';
 
 import 'buisnes_user_profile_page.dart';
 
 class HomePageBuisnessUser extends StatefulWidget {
+  static final routeName = "HomePageBuisnessUser";
 
   @override
   _HomePageBuisnessUserState createState() => _HomePageBuisnessUserState();
@@ -11,6 +14,20 @@ class HomePageBuisnessUser extends StatefulWidget {
 
 class _HomePageBuisnessUserState extends State<HomePageBuisnessUser> {
   int sectionIndex = 0;
+  Company company;
+
+  @override
+  void initState() {
+    getCompany();
+    super.initState();
+  }
+
+  getCompany() async {
+    await BeasyApi().companyServices.getCompany();
+    print("loading ended company getted");
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,13 +35,12 @@ class _HomePageBuisnessUserState extends State<HomePageBuisnessUser> {
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: sectionIndex,
         items: [
-          BottomNavigationBarItem(
-              label: "Streams", icon: Icon(Icons.menu)),
+          BottomNavigationBarItem(label: "Streams", icon: Icon(Icons.menu)),
           BottomNavigationBarItem(label: "Profile", icon: Icon(Icons.person)),
         ],
-         onTap: (index) {
+        onTap: (index) {
           setState(() {
-           sectionIndex = index;
+            sectionIndex = index;
           });
         },
       ),
@@ -35,13 +51,13 @@ class _HomePageBuisnessUserState extends State<HomePageBuisnessUser> {
   Widget _body() {
     switch (sectionIndex) {
       case 0:
-      return StreamsPage();  
+        return StreamsPage();
         break;
-        case 1:
+      case 1:
         return BuisnesUserProfilePage();
         break;
       default:
-      return StreamsPage();
+        return StreamsPage();
     }
   }
 }

@@ -12,6 +12,7 @@ class ProfileServices {
 
   FirebaseAuth auth;
   FirebaseFirestore store;
+  userModel.User user;
 
   factory ProfileServices({
     @required FirebaseAuth auth,
@@ -65,7 +66,16 @@ class ProfileServices {
     try {
       var res = await auth.signInWithEmailAndPassword(
           email: email, password: password);
-      return res.user != null;
+      if (res.user != null) {
+        var userExist = await getUserData();
+        if (userExist != null) {
+          user = userExist;
+          return true;
+        }
+        user = null;
+        return false;
+      }
+      return false;
     } catch (e) {
       print(e.toString());
       return false;
