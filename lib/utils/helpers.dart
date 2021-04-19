@@ -1,4 +1,5 @@
 import 'package:beasy/utils/enums.dart';
+import 'package:flutter/material.dart';
 
 UserType userTypeFromString(String typeString) {
   switch (typeString) {
@@ -29,4 +30,11 @@ bool isValidEmail(String email) {
   return RegExp(
           r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
       .hasMatch(email);
+}
+
+DateTime timeOfDaytoDate(TimeOfDay timeOfDay) {
+  var curent = DateTime.now();
+
+  return DateTime(
+      curent.year, curent.month, curent.day, timeOfDay.hour, timeOfDay.minute);
 }

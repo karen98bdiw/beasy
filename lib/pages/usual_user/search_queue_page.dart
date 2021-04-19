@@ -1,3 +1,6 @@
+import 'package:beasy/models/company_model/company.dart';
+import 'package:beasy/pages/usual_user/company_info_page.dart';
+import 'package:beasy/services/beasyApi.dart';
 import 'package:beasy/widgets/inpurs.dart';
 import 'package:flutter/material.dart';
 
@@ -9,6 +12,29 @@ class SearchQueuePage extends StatefulWidget {
 }
 
 class _SearchQueuePageState extends State<SearchQueuePage> {
+  bool isLaoding = false;
+  List<Company> allCompanies = [];
+
+  void getCompanyes() async {
+    setState(() {
+      isLaoding = true;
+    });
+
+    var res = await BeasyApi().companyServices.getAllCompanyes();
+    if (res != null) {
+      allCompanies = res;
+    }
+    setState(() {
+      isLaoding = false;
+    });
+  }
+
+  @override
+  void initState() {
+    getCompanyes();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,32 +44,39 @@ class _SearchQueuePageState extends State<SearchQueuePage> {
   }
 
   Widget _body() {
-    return Stack(
-      children: [
-        Container(
-            margin: EdgeInsets.only(top: 20),
-            child: CustomInput(
-
-                prefix: Icons.search, hintText: "Search", obscureText: false)),
-        Container(
-          margin: EdgeInsets.only(top: 90),
-          child: ListView.builder(
-              //physics: NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              itemCount: 5,
-              itemBuilder: (context, index) {
-                return StreamsCard();
-              }),
-        )
-      ],
-    );
+    return isLaoding
+        ? Center(
+            child: CircularProgressIndicator(),
+          )
+        : Stack(
+            children: [
+              Container(
+                  margin: EdgeInsets.only(top: 20),
+                  child: CustomInput(
+                      prefix: Icons.search,
+                      hintText: "Search",
+                      obscureText: false)),
+              Container(
+                margin: EdgeInsets.only(top: 90),
+                child: ListView.builder(
+                    //physics: NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: allCompanies.length,
+                    itemBuilder: (context, index) {
+                      return StreamsCard(
+                        company: allCompanies[index],
+                      );
+                    }),
+              )
+            ],
+          );
   }
 }
 
 class StreamsCard extends StatefulWidget {
-//  comp.Company company;
+  Company company;
 
-  //StreamsCard({this.company});
+  StreamsCard({this.company});
 
   @override
   _StreamsCardState createState() => _StreamsCardState();
@@ -82,10 +115,10 @@ class _StreamsCardState extends State<StreamsCard> {
           border: Border.all(color: Colors.grey, width: 0.5)),
       child: InkWell(
         onTap: () {
-          // Navigator.of(context).push(MaterialPageRoute(
-          //     builder: (context) => CompanyInfoPage(
-          //           company: widget.company,
-          //         )));
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => CompanyInfoPage(
+                    company: widget.company,
+                  )));
         },
         child: Row(
           children: [
@@ -107,10 +140,11 @@ class _StreamsCardState extends State<StreamsCard> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("name"),
+                        Text(widget.company.companyName ?? "company name null"),
                         Container(
                           //width: MediaQuery.of(context).size.width * 0.45,
-                          child: Text("descrip  "),
+                          child: Text(widget.company.companyDescription ??
+                              "compna dec in null"),
                         ),
                         Text(
                           workDays,

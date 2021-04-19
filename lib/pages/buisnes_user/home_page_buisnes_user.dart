@@ -1,4 +1,7 @@
 import 'package:beasy/models/company_model/company.dart';
+import 'package:beasy/models/company_model/company_category.dart';
+import 'package:beasy/models/company_model/company_stream.dart';
+import 'package:beasy/models/company_model/company_stream_service.dart';
 import 'package:beasy/pages/buisnes_user/streams_page.dart';
 import 'package:beasy/services/beasyApi.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +24,8 @@ class _HomePageBuisnessUserState extends State<HomePageBuisnessUser> {
     getCompany();
     super.initState();
   }
+
+  bool isLoading = false;
 
   getCompany() async {
     await BeasyApi().companyServices.getCompany();
@@ -61,3 +66,45 @@ class _HomePageBuisnessUserState extends State<HomePageBuisnessUser> {
     }
   }
 }
+
+//testing button
+// RaisedButton(
+//                     onPressed: () async {
+//                       setState(() {
+//                         isLoading = true;
+//                       });
+//                       // BeasyApi().profileServices.createUser();
+//                       var comp = Company(
+//                         companyName: "testing compnany",
+//                         companyCategories: [
+//                           CompanyCategory(
+//                             categoryName: "Sport",
+//                             companyCategoryId: "0",
+//                           ),
+//                           CompanyCategory(
+//                             categoryName: "Health",
+//                             companyCategoryId: "1",
+//                           ),
+//                         ],
+//                       );
+//                       var stream = CompanyStream(
+//                         streamName: "Worker number 1 stream",
+//                         streamServices: [
+//                           CompanyStreamService(
+//                             serviceName: "serice of worker 1",
+//                             durationInMinutes: 30,
+//                           ),
+//                         ],
+//                       );
+//                       stream.queue = [];
+//                       comp.companyStreams = [stream];
+
+//                       BeasyApi().companyServices.createCompany(
+//                             company: comp,
+//                           );
+//                       setState(() {
+//                         isLoading = false;
+//                       });
+//                     },
+//                     child: Text("test"),
+//                   ),

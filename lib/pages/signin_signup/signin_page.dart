@@ -5,6 +5,7 @@ import 'package:beasy/models/user_models/user.dart';
 import 'package:beasy/pages/buisnes_user/home_page_buisnes_user.dart';
 import 'package:beasy/pages/usual_user/home_page_user.dart';
 import 'package:beasy/services/beasyApi.dart';
+import 'package:beasy/services/company_services.dart';
 import 'package:beasy/services/profile_services.dart';
 import 'package:beasy/utils/enums.dart';
 import 'package:beasy/utils/helpers.dart';

@@ -27,6 +27,14 @@ class _BuisnesUserProfilePageState extends State<BuisnesUserProfilePage> {
   }
 
   Widget _body() {
+    print("this is " +
+        BeasyApi()
+            .companyServices
+            .curentUserCompany
+            .companyStreams[0]
+            .queue
+            .length
+            .toString());
     return Stack(children: [
       Column(
         children: [

@@ -105,7 +105,6 @@ class CompanyServices {
             .get();
         for (int i = 0; i < streams.docs.length; i++) {
           var element = streams.docs[i];
-          print("large for each");
           var stream = CompanyStream.fromJson(element);
           var streamQueues = await store
               .collection(companiesCollectionPath)
@@ -117,13 +116,11 @@ class CompanyServices {
           print(streamQueues.size);
           streamQueues.docs.forEach((e) {
             stream.queue.add(StreamQueueItem.fromJson(e));
-            print("this is called 1");
           });
           curentUserCompany.companyStreams.add(
             stream,
           );
         }
-        print("print end");
         return true;
       }
 
@@ -144,6 +141,108 @@ class CompanyServices {
           .update({"companyStreamState": toValue});
     } catch (e) {
       print(e.toString());
+    }
+  }
+
+  Future<List<Company>> getAllCompanyes() async {
+    try {
+      List<Company> companies = [];
+      var res = await store.collection(companiesCollectionPath).get();
+
+      var data = res.docs;
+
+      for (int i = 0; i < data.length; i++) {
+        var comp = await getCompanyData(data[i]);
+        if (comp != null) {
+          companies.add(comp);
+        }
+      }
+      print(companies);
+      return companies;
+    } catch (e) {
+      print(e.toString());
+      return null;
+    }
+  }
+
+  Future<Company> getCompanyData(data) async {
+    curentUserCompany = Company.fromJson(data.data());
+    try {
+      var streams = await store
+          .collection(companiesCollectionPath)
+          .doc(curentUserCompany.companyOwnerId)
+          .collection(companyStreamsPath)
+          .get();
+      for (int i = 0; i < streams.docs.length; i++) {
+        var element = streams.docs[i];
+        var stream = CompanyStream.fromJson(element);
+        var streamQueues = await store
+            .collection(companiesCollectionPath)
+            .doc(curentUserCompany.companyOwnerId)
+            .collection(companyStreamsPath)
+            .doc(stream.companyStreamId)
+            .collection(streamQueuePath)
+            .get();
+        streamQueues.docs.forEach((e) {
+          stream.queue.add(StreamQueueItem.fromJson(e));
+        });
+        curentUserCompany.companyStreams.add(
+          stream,
+        );
+        return curentUserCompany;
+      }
+    } catch (e) {
+      print(e.toString());
+      return null;
+    }
+  }
+
+  Future<bool> bookAStream(
+      {String compmayId, String streamId, StreamQueueItem queueItem}) async {
+    try {
+      List<StreamQueueItem> castedQueues = [];
+      var allQueues = await store
+          .collection(companiesCollectionPath)
+          .doc(compmayId)
+          .collection(companyStreamsPath)
+          .doc(streamId)
+          .collection("streamQueuePath")
+          .get();
+
+      allQueues.docs.forEach((element) {
+        castedQueues.add(StreamQueueItem.fromJson(element));
+      });
+
+      var isAvailableQueus = true;
+      for (int i = 0; i < castedQueues.length; i++) {
+        var curent = castedQueues[i];
+        if (queueItem.startTime.isAfter(curent.startTime) &&
+            queueItem.startTime.isBefore(curent.endTime)) {
+          isAvailableQueus = false;
+        }
+        if (queueItem.startTime.isBefore(curent.startTime) &&
+            queueItem.endTime.isAfter(curent.startTime)) {
+          isAvailableQueus = false;
+        }
+      }
+      print("is queue available${isAvailableQueus}");
+
+      if (isAvailableQueus) {
+        var l = allQueues.docs.length;
+
+        var streamQueues = await store
+            .collection(companiesCollectionPath)
+            .doc(compmayId)
+            .collection(companyStreamsPath)
+            .doc(streamId)
+            .collection("streamQueuePath")
+            .doc(l.toString())
+            .set(queueItem.toJson());
+      }
+      return true;
+    } catch (e) {
+      print(e.toString());
+      return false;
     }
   }
 }
