@@ -147,7 +147,7 @@ class _StreamsCardState extends State<StreamsCard> {
                               "compna dec in null"),
                         ),
                         Text(
-                          workDays,
+                          workTime,
                           textAlign: TextAlign.center,
                         ),
                         Text(

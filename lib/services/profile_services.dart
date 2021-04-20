@@ -49,13 +49,14 @@ class ProfileServices {
     }
   }
 
-  Future<bool> postUser(userModel.User user) async {
-    user.id = auth.currentUser.uid;
+  Future<bool> postUser(userModel.User model) async {
+    model.id = auth.currentUser.uid;
     try {
       await store
           .collection(usersCollectionPath)
           .doc(auth.currentUser.uid)
-          .set(user.toJson());
+          .set(model.toJson());
+      user = await getUserData();
       return true;
     } catch (e) {
       return false;

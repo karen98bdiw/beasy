@@ -1,3 +1,5 @@
+import 'package:beasy/models/company_model/company.dart';
+import 'package:beasy/services/beasyApi.dart';
 import 'package:beasy/widgets/buttons.dart';
 import 'package:beasy/widgets/inpurs.dart';
 import 'package:beasy/widgets/select_week_days.dart';
@@ -12,6 +14,7 @@ class AdditionalPageView extends StatefulWidget {
 }
 
 class _AdditionalPageViewState extends State<AdditionalPageView> {
+  Company company;
   var _formState = GlobalKey<FormState>();
   TextEditingController _nameController = TextEditingController();
   TextEditingController _descriptionController = TextEditingController();
@@ -28,6 +31,13 @@ class _AdditionalPageViewState extends State<AdditionalPageView> {
     );
   }
 
+  onSave() {
+    if (_formState.currentState.validate()) {
+      return;
+    }
+    _formState.currentState.save();
+  }
+
   Widget _body() {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
@@ -38,10 +48,14 @@ class _AdditionalPageViewState extends State<AdditionalPageView> {
             //_avatarImage(),
             CustomInput(
                 hintText: "Copany Name",
+                onSaved: (v) =>
+                    BeasyApi().companyServices.companyModel.companyName,
                 controller: _nameController,
                 obscureText: false),
             CustomInput(
                 hintText: "Copany Name",
+                onSaved: (v) =>
+                    BeasyApi().companyServices.companyModel.companyDescription,
                 controller: _descriptionController,
                 obscureText: false),
             _selectWorkDay(),
@@ -86,7 +100,7 @@ class _AdditionalPageViewState extends State<AdditionalPageView> {
               boxDecoration: BoxDecoration(),
               onSelect: (List<String> values) {
                 setState(() {
-                  workDays = values;
+                  BeasyApi().companyServices.companyModel.workDays = values;
                 });
               },
             ),
@@ -106,6 +120,7 @@ class _AdditionalPageViewState extends State<AdditionalPageView> {
       setState(() {
         _selectedTimeStart = DateTime(curentTime.year, curentTime.month,
             curentTime.day, time.hour, time.minute);
+        BeasyApi().companyServices.companyModel.startTime = _selectedTimeStart;
       });
     }
   }
@@ -120,6 +135,7 @@ class _AdditionalPageViewState extends State<AdditionalPageView> {
       setState(() {
         _selectedTimeEnd = DateTime(curentTime.year, curentTime.month,
             curentTime.day, time.hour, time.minute);
+        BeasyApi().companyServices.companyModel.endTime = _selectedTimeEnd;
       });
     }
   }

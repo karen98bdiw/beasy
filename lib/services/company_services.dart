@@ -13,6 +13,7 @@ class CompanyServices {
   FirebaseAuth auth;
   FirebaseFirestore store;
   Company curentUserCompany;
+  Company companyModel = Company();
 
   factory CompanyServices({FirebaseAuth auth, FirebaseFirestore store}) {
     companyServices.auth = auth;
@@ -139,6 +140,7 @@ class CompanyServices {
           .collection("companyStream")
           .doc(streamId)
           .update({"companyStreamState": toValue});
+      await getCompany(companyid: auth.currentUser.uid);
     } catch (e) {
       print(e.toString());
     }

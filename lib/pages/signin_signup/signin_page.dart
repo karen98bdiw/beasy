@@ -1,12 +1,7 @@
-import 'package:beasy/models/company_model/company.dart';
-import 'package:beasy/models/company_model/company_stream.dart';
-import 'package:beasy/models/company_model/stream_queue_item.dart';
-import 'package:beasy/models/user_models/user.dart';
+import 'package:beasy/pages/buisnes_user/buisnes_user_profile_page.dart';
 import 'package:beasy/pages/buisnes_user/home_page_buisnes_user.dart';
 import 'package:beasy/pages/usual_user/home_page_user.dart';
 import 'package:beasy/services/beasyApi.dart';
-import 'package:beasy/services/company_services.dart';
-import 'package:beasy/services/profile_services.dart';
 import 'package:beasy/utils/enums.dart';
 import 'package:beasy/utils/helpers.dart';
 import 'package:beasy/widgets/buttons.dart';
@@ -14,7 +9,8 @@ import 'package:beasy/widgets/inpurs.dart';
 import 'package:flutter/material.dart';
 
 class SingInPage extends StatefulWidget {
-  SingInPage({Key key}) : super(key: key);
+  final String name;
+  SingInPage({this.name});
 
   @override
   _SingInPageState createState() => _SingInPageState();
@@ -23,14 +19,16 @@ class SingInPage extends StatefulWidget {
 class _SingInPageState extends State<SingInPage> {
   String email;
   String password;
+  bool _showSingInOrSingUp = false;
 
-  final _formState = GlobalKey<FormState>();
+  final _formStateSingIn = GlobalKey<FormState>();
+  final _formStateSingUp = GlobalKey<FormState>();
 
-  void _onSign() async {
-    if (!_formState.currentState.validate()) {
+  void _onSignIn() async {
+    if (!_formStateSingIn.currentState.validate()) {
       return;
     }
-    _formState.currentState.save();
+    _formStateSingIn.currentState.save();
     var res = await BeasyApi()
         .profileServices
         .signIn(email: email, password: password);
@@ -53,41 +51,52 @@ class _SingInPageState extends State<SingInPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromRGBO(50, 65, 85, 1),
-      body: _body(),
-    );
+        backgroundColor: Color.fromRGBO(50, 65, 85, 1), body: _bodySingIn());
   }
 
-  Widget _body() {
-    return Container(
-      margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.1),
-      child: Form(
-        key: _formState,
-        child: Column(
-          children: [
-            Container(
-                child: Text("Sing In",
-                    style: TextStyle(color: Colors.white, fontSize: 18))),
-            CustomInput(
-              hintText: "Email",
-              onSaved: (v) => this.email = v,
-              validator: (v) => v.isEmpty
-                  ? "Email is required!"
-                  : isValidEmail(v)
-                      ? null
-                      : "Invalid email",
-            ),
-            CustomInput(
-              hintText: "Password",
-              onSaved: (v) => this.password = v,
-              validator: (v) => v.isEmpty ? "Password is required" : null,
-              obscureText: true,
-            ),
-            CustumButton(
-              text: "Sign In",
-              onTap: _onSign,
-            )
-          ],
+  Widget _bodySingIn() {
+    return SingleChildScrollView(
+      child: Container(
+        margin: EdgeInsets.symmetric(vertical: 10, horizontal: 18),
+        child: Form(
+          key: _formStateSingIn,
+          child: Column(
+            children: [
+              Container(
+                  child: Text("Sing In ${widget.name}",
+                      style: TextStyle(color: Colors.white, fontSize: 18))),
+              Container(
+                // margin: EdgeInsets.symmetric(vertical: 10),
+                child: CustomInput(
+                  prefix: Icons.person_outline,
+                  hintText: "Email",
+                  onSaved: (v) => this.email = v,
+                  validator: (v) => v.isEmpty
+                      ? "Email is required!"
+                      : isValidEmail(v)
+                          ? null
+                          : "Invalid email",
+                ),
+              ),
+              Container(
+                // margin: EdgeInsets.symmetric(vertical: 10),
+                child: CustomInput(
+                  prefix: Icons.lock_outline,
+                  hintText: "Password",
+                  onSaved: (v) => this.password = v,
+                  validator: (v) => v.isEmpty ? "Password is required" : null,
+                  obscureText: true,
+                ),
+              ),
+              Container(
+                //margin: EdgeInsets.symmetric(vertical: 20),
+                child: CustumButton(
+                  text: "Sign In",
+                  onTap: _onSignIn,
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );

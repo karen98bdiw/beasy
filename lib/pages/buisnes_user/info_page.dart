@@ -1,9 +1,14 @@
+import 'package:beasy/beasy.dart';
+import 'package:beasy/models/company_model/company.dart';
+import 'package:beasy/models/company_model/company_stream.dart';
+import 'package:beasy/services/beasyApi.dart';
 import 'package:beasy/widgets/buttons.dart';
 import 'package:beasy/widgets/inpurs.dart';
 import 'package:flutter/material.dart';
 
 class InfoPageView extends StatefulWidget {
-  InfoPageView({Key key}) : super(key: key);
+  Company company;
+  InfoPageView({this.company});
 
   @override
   _InfoPageViewState createState() => _InfoPageViewState();
@@ -12,6 +17,7 @@ class InfoPageView extends StatefulWidget {
 class _InfoPageViewState extends State<InfoPageView> {
   var _workerNameController = TextEditingController();
   var _descriptionController = TextEditingController();
+  CompanyStream companyStream = CompanyStream();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,10 +34,12 @@ class _InfoPageViewState extends State<InfoPageView> {
           CustomInput(
             hintText: "Worker Name",
             controller: _workerNameController,
+            onSaved: (v) => companyStream.streamName = v,
           ),
           CustomInput(
             hintText: "Description",
             controller: _descriptionController,
+            onSaved: (v) => companyStream.streamDescription = v,
           ),
           CustumButton(
             text: "add servise",

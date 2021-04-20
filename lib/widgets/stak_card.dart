@@ -14,7 +14,6 @@ class StackCard extends StatefulWidget {
 }
 
 class _StackCardState extends State<StackCard> {
-  bool isSwitched = false;
   @override
   Widget build(BuildContext context) {
     return Container(

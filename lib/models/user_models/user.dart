@@ -3,11 +3,11 @@ import 'package:beasy/utils/helpers.dart';
 
 class User {
   String id;
-  final String name;
-  final String surname;
-  final String email;
-  final UserType userType;
-  final String companyId;
+  String name;
+  String surname;
+  String email;
+  UserType userType;
+  String companyId;
 
   User({
     this.id,

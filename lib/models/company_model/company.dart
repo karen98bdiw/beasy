@@ -7,12 +7,18 @@ class Company {
   final String companyName;
   final String companyDescription;
   final List<String> companyImages;
+  List<String> workDays;
+  DateTime startTime;
+  DateTime endTime;
   final String companyAvatar;
   final List<CompanyCategory> companyCategories;
   List<CompanyStream> companyStreams = [];
 
   Company({
     this.companyId,
+    this.endTime,
+    this.startTime,
+    this.workDays,
     this.companyCategories,
     this.companyDescription,
     this.companyOwnerId,
@@ -23,7 +29,12 @@ class Company {
 
   factory Company.fromJson(json) {
     return Company(
+      workDays: json['workDays'] != null
+          ? (json['workDays'] as List).map((e) => e.toString()).toList()
+          : null,
       companyId: json["companyId"],
+      startTime: json['startTime'],
+      endTime: json['endTime'],
       companyCategories: json["companyCategories"] != null
           ? (json["companyCategories"] as List)
               .map((e) => CompanyCategory.fromJson(e))
@@ -45,7 +56,9 @@ class Company {
     data["companyId"] = this.companyId;
     data["companyOwnerId"] = this.companyOwnerId;
     data["companyDescription"] = this.companyDescription;
-
+    data['endTime'] = this.endTime;
+    data['startTime'] = this.startTime;
+    data['workDays'] = this.workDays;
     data["companyCategories"] = this.companyCategories != null
         ? this.companyCategories.map((e) => e.toJson()).toList()
         : null;
