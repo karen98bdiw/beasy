@@ -3,12 +3,12 @@ import 'package:beasy/models/company_model/stream_queue_item.dart';
 
 class CompanyStream {
   String companyStreamId;
-  final String streamName;
-  final String streamDescription;
+  String streamName;
+  String streamDescription;
   bool companyStreamState;
   final List<String> streamImages;
   List<StreamQueueItem> queue = [];
-  List<CompanyStreamService> streamServices;
+  List<CompanyStreamService> streamServices = [];
 
   CompanyStream({
     this.companyStreamId,

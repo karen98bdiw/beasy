@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 class CustomInput extends StatelessWidget {
   final String hintText;
   final IconData prefix;
+
   final FormFieldSetter<String> onSaved;
   final FormFieldValidator<String> validator;
   final TextEditingController controller;
   final bool obscureText;
+  final TextInputType type;
 
   CustomInput({
     this.hintText,
@@ -15,13 +17,15 @@ class CustomInput extends StatelessWidget {
     this.validator,
     this.controller,
     this.obscureText = false,
+    this.type,
   });
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 30),
+      padding: const EdgeInsets.only(top: 10),
       child: TextFormField(
+        keyboardType: type,
         validator: validator,
         onSaved: onSaved,
         cursorColor: Colors.white,

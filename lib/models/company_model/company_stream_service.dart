@@ -1,7 +1,7 @@
 class CompanyStreamService {
   final String companyStreamServiceId;
-  final String serviceName;
-  final int durationInMinutes;
+  String serviceName;
+  int durationInMinutes;
 
   CompanyStreamService({
     this.companyStreamServiceId,

@@ -22,6 +22,7 @@ class CompanyServices {
   }
 
   Future<bool> createCompany({Company company}) async {
+    print(company.companyName);
     try {
       company.companyOwnerId = auth.currentUser.uid;
       company.companyId = auth.currentUser.uid +

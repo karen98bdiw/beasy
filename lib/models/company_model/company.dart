@@ -4,14 +4,14 @@ import 'package:beasy/models/company_model/company_stream.dart';
 class Company {
   String companyId;
   String companyOwnerId;
-  final String companyName;
-  final String companyDescription;
-  final List<String> companyImages;
+  String companyName;
+  String companyDescription;
+  List<String> companyImages;
   List<String> workDays;
   DateTime startTime;
   DateTime endTime;
-  final String companyAvatar;
-  final List<CompanyCategory> companyCategories;
+  String companyAvatar;
+  List<CompanyCategory> companyCategories;
   List<CompanyStream> companyStreams = [];
 
   Company({

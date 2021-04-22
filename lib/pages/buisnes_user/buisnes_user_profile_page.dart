@@ -215,26 +215,25 @@ class _BuisnesUserProfilePageState extends State<BuisnesUserProfilePage> {
                     ],
                   ),
                 ),
-                //user.companyId == null
-                //?
-                Container(
-                  child: CustumButton(
-                    text: "Create Buisnes",
-                    onTap: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => CreateBuisnesPage()));
-                    },
-                  ),
-                )
-                // : Container(
-                //     margin: EdgeInsets.only(top: 30),
-                //     child: Text(
-                //       "Your workers queue",
-                //       style: TextStyle(
-                //           color: Colors.black,
-                //           fontWeight: FontWeight.bold,
-                //           fontSize: 18),
-                //     ))
+                user.companyId == null
+                    ? Container(
+                        child: CustumButton(
+                          text: "Create Buisnes",
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => CreateBuisnesPage()));
+                          },
+                        ),
+                      )
+                    : Container(
+                        margin: EdgeInsets.only(top: 30),
+                        child: Text(
+                          "Your workers queue",
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18),
+                        ))
               ],
             ),
           ),

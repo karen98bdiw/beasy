@@ -49,13 +49,15 @@ class _AdditionalPageViewState extends State<AdditionalPageView> {
             CustomInput(
                 hintText: "Copany Name",
                 onSaved: (v) =>
-                    BeasyApi().companyServices.companyModel.companyName,
+                    BeasyApi().companyServices.companyModel.companyName = v,
                 controller: _nameController,
                 obscureText: false),
             CustomInput(
-                hintText: "Copany Name",
-                onSaved: (v) =>
-                    BeasyApi().companyServices.companyModel.companyDescription,
+                hintText: "Copany Descripton",
+                onSaved: (v) => BeasyApi()
+                    .companyServices
+                    .companyModel
+                    .companyDescription = v,
                 controller: _descriptionController,
                 obscureText: false),
             _selectWorkDay(),
@@ -64,6 +66,7 @@ class _AdditionalPageViewState extends State<AdditionalPageView> {
               text: "Next",
               onTap: () {
                 setState(() {
+                  _formState.currentState.save();
                   widget.controller.animateToPage(1,
                       duration: Duration(milliseconds: 250),
                       curve: Curves.bounceInOut);
